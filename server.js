@@ -5,9 +5,8 @@ const api = require('./public/assets/scripts')
 const PORT = process.env.PORT||3001
 
 
-app.use('/', (req, res) => {
-  res.send('/', api);
-});
+app.use('/', api);
+
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT}`)
