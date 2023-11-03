@@ -6,7 +6,7 @@ const PORT = process.env.PORT||3001
 
 
 app.use('/', (req, res) => {
-  res.send('Ahoy');
+  res.send('/', api);
 });
 
 app.listen(PORT, () =>
