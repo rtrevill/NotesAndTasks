@@ -2,6 +2,8 @@ const express = require('express');
 const notes = require('express').Router();
 const db = require('../db/db.json');
 const {readFile, writeFile} = require('fs').promises;
+const { v4: uuidv4 } = require('uuid');
+
 
 notes.use(express.json());
 notes.use(express.urlencoded({ extended: true }));
@@ -18,26 +20,37 @@ notes.post('/notes', (req, res) => {
         res.send('please enter valid details')
     };
 
-    // const newish  = JSON.parse(db)
-    // .then(console.log('file read successfully'));
-
     const newTask = {
         title,
-        text
+        text,
+        id: uuidv4(),
     }
 
     db.push(newTask);
     writeFile('./db/db.json', JSON.stringify(db));
     res.send(db);
 
-    // async function respond(newish, newTask){
-    //     console.log(newish);
-    // await newish.push(newTask);
-    // res.send(newish);
-    // }
-
-    // respond(newish, newTask);
-    // res.send(listItems);
 })
 
+notes.delete('/notes/:id', (req, res) => {
+    let origArray = db;
+    const id = req.params.id
+    console.log(req.params.id, origArray);
+    origArray.forEach((task) => {
+    if((task.id) ===id){
+        const indexNum = origArray.indexOf(task);
+        origArray.splice(indexNum , 1)
+    }}
+    )
+    writeFile('./db/db.json', JSON.stringify(origArray));
+    res.send(origArray);
+    }
+    // if (req.params.id !== origArray.find(req.params.id)){
+    //     res.send('No Match')
+    // };
+    
+    // console.log(`${req.params.id}`)
+
+
+)
 module.exports = notes;
