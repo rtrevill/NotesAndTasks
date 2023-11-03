@@ -6,11 +6,8 @@ const path = require('path');
 
 const PORT = process.env.PORT||3001
 
-
+app.use(express.static('public'));
 app.use('/api', api);
-app.use('/', (req,res) =>
-res.sendFile(path.join(__dirname, './public/index.html'));
-);
 
 
 
