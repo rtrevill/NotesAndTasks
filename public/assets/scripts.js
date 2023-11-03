@@ -3,6 +3,6 @@ const notesRouter = require('../../routes/notes')
 
 const app = express();
 
-app.use('/api', notesRouter);
+app.use('/', (req, res) => res.send("Hello there"));
 
 module.exports = app;
