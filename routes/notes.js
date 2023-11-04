@@ -1,7 +1,7 @@
 const express = require('express');
 const notes = require('express').Router();
 const db = require('../db/db.json');
-const {readFile, writeFile} = require('fs').promises;
+const {writeFile} = require('fs').promises;
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -16,7 +16,7 @@ notes.post('/notes', (req, res) => {
     const{title, text} = req.body;
 
     if ((!title)||(!text)){
-        res.send('please enter valid details')
+        return res.send('please complete both fields')
     };
 
     const newTask = {
@@ -26,8 +26,8 @@ notes.post('/notes', (req, res) => {
     }
 
     db.push(newTask);
-    writeFile('./db/db.json', JSON.stringify(db));
-    res.send(db);
+    writeFile('./db/db.json', JSON.stringify(db))
+    .then(res.send(newTask));
 
 })
 
@@ -41,7 +41,7 @@ notes.delete('/notes/:id', (req, res) => {
     }}
     )
     writeFile('./db/db.json', JSON.stringify(origArray));
-    res.send(origArray);
+    .then(res.send(origArray));
     }
     // if (req.params.id !== origArray.find(req.params.id)){
     //     res.send('No Match')
