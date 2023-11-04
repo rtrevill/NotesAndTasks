@@ -148,7 +148,6 @@ const renderNoteList = async (notes) => {
     spanEl.addEventListener('click', handleNoteView);
 
     liEl.append(spanEl);
-    console.log(liEl);
     if (delBtn) {
       const delBtnEl = document.createElement('i');
       delBtnEl.classList.add(
@@ -173,12 +172,10 @@ const renderNoteList = async (notes) => {
   jsonNotes.forEach((note) => {
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);
-    console.log(window.location.pathname);
     noteListItems.push(li);
   });
 
   if (window.location.pathname === '/notes.html') {
-    console.log('Hello World');
     noteListItems.forEach((note) => noteList[0].append(note))
   }
 };
