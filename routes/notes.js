@@ -13,7 +13,6 @@ notes.get('/notes', (req,res) => {
 });
 
 notes.post('/notes', (req, res) => {
-    console.log(req.body.title, req.body.text);
     const{title, text} = req.body;
 
     if ((!title)||(!text)){
@@ -35,7 +34,6 @@ notes.post('/notes', (req, res) => {
 notes.delete('/notes/:id', (req, res) => {
     let origArray = db;
     const id = req.params.id
-    console.log(req.params.id, origArray);
     origArray.forEach((task) => {
     if((task.id) ===id){
         const indexNum = origArray.indexOf(task);
