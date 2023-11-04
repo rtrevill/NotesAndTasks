@@ -40,7 +40,7 @@ notes.delete('/notes/:id', (req, res) => {
         origArray.splice(indexNum , 1)
     }}
     )
-    writeFile('./db/db.json', JSON.stringify(origArray));
+    writeFile('./db/db.json', JSON.stringify(origArray))
     .then(res.send(origArray));
     }
     // if (req.params.id !== origArray.find(req.params.id)){
