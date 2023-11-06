@@ -25,8 +25,9 @@ notes.post('/notes', (req, res) => {
         id: uuidv4(),
     }
 
-    db.push(newTask);
-    writeFile('./db/db.json', JSON.stringify(db))
+    let newList = [...db];
+    newList.push(newTask);
+    writeFile('./db/db.json', JSON.stringify(newList))
     .then(res.send(newTask));
 
 })
