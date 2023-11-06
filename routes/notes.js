@@ -25,31 +25,34 @@ notes.post('/notes', (req, res) => {
         id: uuidv4(),
     }
 
-    let newList = [...db];
-    newList.push(newTask);
-    writeFile('./db/db.json', JSON.stringify(newList))
-    .then(res.send(newTask));
+    db.push(newTask);
+    writeFile('./db/db.json', JSON.stringify(db))
+    .then(res.send(newTask))
+    .catch(err => {
+        console.log(`Error, Failed to write file ${err}`)
+        res.send('Failed to write file')
+    });
 
 })
 
 notes.delete('/notes/:id', (req, res) => {
     let origArray = db;
-    const id = req.params.id
+    const id = req.params.id;
+
     origArray.forEach((task) => {
-    if((task.id) ===id){
+    if((task.id) === id){
         const indexNum = origArray.indexOf(task);
         origArray.splice(indexNum , 1)
     }}
     )
-    writeFile('./db/db.json', JSON.stringify(origArray))
-    .then(res.send(origArray));
-    }
-    // if (req.params.id !== origArray.find(req.params.id)){
-    //     res.send('No Match')
-    // };
-    
-    // console.log(`${req.params.id}`)
 
+    writeFile('./db/db.json', JSON.stringify(origArray))
+    .then(res.send(origArray))
+    .catch(err => {
+        console.log(`Error, failed to write file ${err}`)
+        res.send('Failed to write file')
+    });
+    }
 
 )
 module.exports = notes;
