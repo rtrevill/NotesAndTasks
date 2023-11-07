@@ -5,7 +5,10 @@ This application will use an Express.js back end and will save and retrieve note
 The application’s front end has already been created. The job was to build the back end, connect the two, and then deploy the entire application to Heroku.
 
 ### Link to deployed application:
+https://notes-to-rememb-7ddf23d50c32.herokuapp.com/
 
+### Link to Github repository:   
+https://github.com/rtrevill/NotesAndTasks
 
 ## Pictures of deployed application
 

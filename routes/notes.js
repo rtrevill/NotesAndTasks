@@ -4,14 +4,18 @@ const db = require('../db/db.json');
 const {writeFile} = require('fs').promises;
 const { v4: uuidv4 } = require('uuid');
 
-
+// Import parsing for incoming JSON or URL-encoded formats
 notes.use(express.json());
 notes.use(express.urlencoded({ extended: true }));
 
+
+// On GET request, send current data file.
 notes.get('/notes', (req,res) => {
     res.json(db);
 });
 
+// on POST request check validity of request
+// then create new task with generated ID and merge into existing data file.
 notes.post('/notes', (req, res) => {
     const{title, text} = req.body;
 
@@ -32,9 +36,10 @@ notes.post('/notes', (req, res) => {
         console.log(`Error, Failed to write file ${err}`)
         res.send('Failed to write file')
     });
+});
 
-})
-
+// On DELETE request, compare request ID to existing IDs in data file
+// If there is a match, remove that entry from the data file
 notes.delete('/notes/:id', (req, res) => {
     let origArray = db;
     const id = req.params.id;
@@ -52,7 +57,6 @@ notes.delete('/notes/:id', (req, res) => {
         console.log(`Error, failed to write file ${err}`)
         res.send('Failed to write file')
     });
-    }
+});
 
-)
 module.exports = notes;
